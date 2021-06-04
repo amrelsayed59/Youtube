@@ -1,0 +1,52 @@
+// // Directions
+// $dir: ltr;
+// $font-weight-regular: 400;
+// $font-weight-medium: 500;
+// $font-weight-bold: 700;
+
+// html {
+//   --right: right;
+//   --left: left;
+//   --dir: ltr;
+//   --productListTranslate: 150%;
+//   --percentage: 100%;
+//   --icx-left-solid-arrow: "\e903";
+//   --icx-right-solid-arrow: "\e904";
+//   --icx-arrow-right: "\e908";
+// }
+
+// // @import "~bootstrap";
+
+// // Base Files
+@import "base/variables";
+@import "base/reset";
+@import "base/functions";
+@import "base/mixins";
+@import "base/colors";
+@import "base/general";
+
+
+// // Modules
+@import "./modules/main/all";
+
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap");
+
+
+// html[dir="rtl"] {
+//   --dir: rtl;
+//   --left: right;
+//   --right: left;
+//   --icx-left-solid-arrow: "\e904";
+//   --icx-right-solid-arrow: "\e903";
+//   --icx-arrow-right: "\e908";
+//   --productListTranslate: -150%;
+//   --percentage: -100%;
+
+//   body {
+//     font-family: "Cairo", sans-serif;
+//   }
+// }
+
+
