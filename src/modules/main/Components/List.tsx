@@ -14,7 +14,7 @@ export const List: React.FC<any> = () => {
         <>
            <div className="main__list">
                <div className="main__listimg">
-                   <img className="main__listimg-img" src={listImg}  alt="Image"/>
+                   <img className="main__listimg-img" src={listImg}  alt="item"/>
                    <div className="main__time">
                         <p>6:04</p>
                    </div>
@@ -30,7 +30,7 @@ export const List: React.FC<any> = () => {
            </div>
            <div className="main__list">
                <div className="main__listimg">
-                   <img className="main__listimg-img" src={listImg}  alt="Image"/>
+                   <img className="main__listimg-img" src={listImg}  alt="item"/>
                    <div className="main__time">
                         <p>6:04</p>
                    </div>
@@ -46,7 +46,7 @@ export const List: React.FC<any> = () => {
            </div>
            <div className="main__list">
                <div className="main__listimg">
-                   <img className="main__listimg-img" src={listImg}  alt="Image"/>
+                   <img className="main__listimg-img" src={listImg}  alt="item"/>
                    <div className="main__time">
                         <p>6:04</p>
                    </div>
@@ -62,7 +62,7 @@ export const List: React.FC<any> = () => {
            </div>
            <div className="main__list">
                <div className="main__listimg">
-                   <img className="main__listimg-img" src={listImg}  alt="Image"/>
+                   <img className="main__listimg-img" src={listImg}  alt="item"/>
                    <div className="main__time">
                         <p>6:04</p>
                    </div>
@@ -78,7 +78,7 @@ export const List: React.FC<any> = () => {
            </div>
            <div className="main__list">
                <div className="main__listimg">
-                   <img className="main__listimg-img" src={listImg}  alt="Image"/>
+                   <img className="main__listimg-img" src={listImg}  alt="item"/>
                    <div className="main__time">
                         <p>6:04</p>
                    </div>
@@ -94,7 +94,7 @@ export const List: React.FC<any> = () => {
            </div>
            <div className="main__list">
                <div className="main__listimg">
-                   <img className="main__listimg-img" src={listImg}  alt="Image"/>
+                   <img className="main__listimg-img" src={listImg}  alt="item"/>
                    <div className="main__time">
                         <p>6:04</p>
                    </div>
@@ -108,7 +108,6 @@ export const List: React.FC<any> = () => {
                     </p>
                </div>
            </div>
-
         </>
     )
 }

@@ -43,6 +43,7 @@
             font-weight: 700;
             color: $dark-blue;
             max-width: 50%;
+            font-size: $text-body;
         }
         .subtitle{
             font-size: $text-caption;
@@ -56,23 +57,31 @@
             max-width: 65%;
         }
     }
+}//main
+
+//@mediaQuery
+@media(max-width: 575px) {
+    .main {
+        padding: .5rem;
+        &__listimg{
+            max-width: 150px;
+            min-width: 100px;
+            max-height: 100px;
+        }
+        &__listcontent{
+            .title{
+                max-width: 100%;
+                font-size: $text-caption;
+            }
+            .subtitle{
+                max-width: 100%;
+                font-size: $text-caption - 1;
+            }
+            .text {
+                max-width: 100%;
+                font-size: $text-caption - 1;
+            }
+        }
+    }
 }
 
-
-
-/**** Loader ****/
-.determinate-loader {
-    height: 5px;
-    background-color: #fbfbfc;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-  
-  .determinate-loader--bar {
-    background-color: $dark-blue;
-    height: 100%;
-    transition: all 2.3s ease-out;
-  }
-/**** Loader ****/

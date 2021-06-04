@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import List from './Components/List'
 import Loader from './Components/Loader';
 import Header from './Layout/Header'
 import { useMainState } from "../../context/gloabal";
+import MobHeader from './Layout/MobHeader'
 
 // interface ChildProps {
 //     color: string;
@@ -15,22 +16,12 @@ export const Main: React.FC<any> = () => {
 
     //Loader
     const { loading } = useMainState();
-    const [percentLoaded, setPercentLoaded] = useState<number>(0);
-    useEffect(() => {
-        setInterval(() => {
-            let val = percentLoaded + 100;
-            if(percentLoaded >= 100) {
-                setPercentLoaded(percentLoaded)
-            } else {
-                setPercentLoaded(val)
-            }
-        }, 100)
-    }, []);
 
     return (
         <>
-            {loading && <Loader percentComplete={percentLoaded}/>}
+            {loading && <Loader/>}
             <Header/>
+            <MobHeader/>
             <section className="main">
                 <div className="container">
                     <div className="main__head">

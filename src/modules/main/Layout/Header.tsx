@@ -12,6 +12,8 @@ export const Header: React.FC<any> = () => {
     const [sticky, setSticky] = useState({ isSticky: false, offset: 0 });
     const headerRef = useRef<any>(null);
 
+    const inputRef = useRef<HTMLInputElement | null>(null); 
+
     // handle scroll event
     const handleScroll = (elTopOffset:any, elHeight:any) => {
         if (window.pageYOffset > (elTopOffset + elHeight)) {
@@ -35,6 +37,11 @@ export const Header: React.FC<any> = () => {
         };
     }, []);
 
+    //onFocus input
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [])
+
 
     return (
         <>
@@ -47,7 +54,11 @@ export const Header: React.FC<any> = () => {
                         </div>
                         <div className="filter">
                             <div className="filter__inputgroup">
-                                <input type="text" className="form-control" placeholder="Search"/>
+                                <input 
+                                    type="text" className="form-control" 
+                                    placeholder="Search"
+                                    ref={inputRef}
+                                    />
                                 <div className="filter__inputgroup-prepend">
                                     <span className="filter__inputgroup-text" id="inputGroup-sizing-sm"> <i className="fas fa-search fa-fw"></i></span>
                                 </div>  
