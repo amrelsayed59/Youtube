@@ -6,8 +6,7 @@ import React, {useState, useEffect, useRef} from 'react'
 // } 
  
 
-//Component Type Annotation
-export const MobHeader: React.FC<any> = () => {
+export const MobHeader: React.FC<any> = ({onSubmit, searchInput, setSearchInput}) => {
 
     //showToggle search input
 	const [show, setShow] = useState(false);
@@ -37,17 +36,23 @@ export const MobHeader: React.FC<any> = () => {
                             <i className="fab fa-youtube fa-2x text-dark-blue"></i>
                         </div>
                         <div className="filter">
-                            <div className="filter__inputgroup">
-                                <input 
-                                    type="text" className="form-control" 
-                                    placeholder="Search"
-                                    ref={inputRef}
-                                    style={show? showInput : null}
-                                    />
-                                <div className="filter__inputgroup-prepend" onClick={showToggle}>
-                                    <span className="filter__inputgroup-text" id="inputGroup-sizing-sm"> <i className="fas fa-search fa-fw"></i></span>
-                                </div>  
-                            </div>
+                            <form onSubmit={onSubmit}>
+                                <div className="filter__inputgroup">
+                                    <input 
+                                        type="text" className="form-control" 
+                                        placeholder="Search"
+                                        ref={inputRef}
+                                        style={show? showInput : null}
+                                        value={searchInput}
+                                        onChange={(e) => {
+											setSearchInput(e.target.value);
+										}}
+                                        />
+                                    <div className="filter__inputgroup-prepend" onClick={showToggle}>
+                                        <span className="filter__inputgroup-text" id="inputGroup-sizing-sm"> <i className="fas fa-search fa-fw"></i></span>
+                                    </div>  
+                                </div>
+                            </form>
                         </div>
                     </div>
                     </div>

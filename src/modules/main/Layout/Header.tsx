@@ -8,7 +8,7 @@ import logo from "../../../assets/images/logo.png";
  
 
 //Component Type Annotation
-export const Header: React.FC<any> = () => {
+export const Header: React.FC<any> = ({onSubmit, searchInput, setSearchInput}) => {
     const [sticky, setSticky] = useState({ isSticky: false, offset: 0 });
     const headerRef = useRef<any>(null);
 
@@ -53,16 +53,22 @@ export const Header: React.FC<any> = () => {
                             <img className="header__logo-img" src={logo} alt="logoImg"/>
                         </div>
                         <div className="filter">
-                            <div className="filter__inputgroup">
-                                <input 
-                                    type="text" className="form-control" 
-                                    placeholder="Search"
-                                    ref={inputRef}
-                                    />
-                                <div className="filter__inputgroup-prepend">
-                                    <span className="filter__inputgroup-text" id="inputGroup-sizing-sm"> <i className="fas fa-search fa-fw"></i></span>
-                                </div>  
-                            </div>
+                            <form onSubmit={onSubmit}>
+                                <div className="filter__inputgroup">
+                                    <input 
+                                        type="text" className="form-control" 
+                                        placeholder="Search"
+                                        ref={inputRef}
+                                        value={searchInput}
+                                        onChange={(e) => {
+											setSearchInput(e.target.value);
+										}}
+                                        />
+                                    <div className="filter__inputgroup-prepend" onClick={onSubmit}>
+                                        <span className="filter__inputgroup-text" id="inputGroup-sizing-sm"> <i className="fas fa-search fa-fw"></i></span>
+                                    </div>  
+                                </div>
+                            </form>
                         </div>
                     </div>
                     </div>

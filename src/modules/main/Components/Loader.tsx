@@ -24,7 +24,7 @@ const Loader: React.FC<any> = () => {
 	);
 }
 
-export const  MobileLoder: React.FC<any> = () => {
+export const  MobileLoader: React.FC<any> = () => {
 	return (
         <div className="mobile-loader">
             <div className="sk-chase">

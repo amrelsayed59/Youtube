@@ -8,8 +8,9 @@ import listImg from "../../../assets/images/listimg.webp";
 // } 
  
 
-//Component Type Annotation
-export const List: React.FC<any> = () => {
+export const List: React.FC<any> = ({videos}) => {
+    console.log('----', videos)
+
     return (
         <>
            <div className="main__list">
