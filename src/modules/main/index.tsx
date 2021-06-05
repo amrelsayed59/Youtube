@@ -1,12 +1,13 @@
 import React,{useState, useEffect} from 'react'
-import List from './Components/List'
+import Item from './Components/Item'
 import Loader from './Components/Loader';
 import Header from './Layout/Header'
 import { useMainState } from "../../context/gloabal";
 import MobHeader from './Layout/MobHeader';
 import axios from "axios";
-
+import {getVideos} from "../../services/youtube";
 import youtube from "../../services/youtube";
+import Filter from './Components/Filter';
 
 // interface ChildProps {
 //     color: string;
@@ -18,38 +19,40 @@ import youtube from "../../services/youtube";
 export const Main: React.FC<any> = () => {
 
     const [searchInput, setSearchInput] = useState("");
-    
+    //list items
+    const [videos, setvideos] = useState([]);
 
-    const onFormSubmit = (e:any) => {
+    const [filter, setFilter] = useState([]);
+
+    const onFormSubmit = async (e:any) => {
         alert(searchInput)
         e.preventDefault();
-        
+        onSearchSubmit(e)
     }
 
-    const [videos, setvideos] = useState([]);
-    // const [selectedVideo, setSelectedVideo] = useState(null)
+       const onSearchSubmit = async (term:any) => {
+        const response = await youtube.get('/search', {params: {q: term}})
+        console.log('---',response)
+    }    
 
-//    const onSearchSubmit = async (term:any) => {
-//         const { data: { items: videos } } = await youtube.get("/search", { params: { q: term } });
-//         // setvideos(videos);
-
-//         setvideos({ ...videos, selectedVideo: videos[0] })
-//     }
-
-    // const onSelectVideo = (selectedVideo:any) => {
-    //     setSelectedVideo(selectedVideo)
-    // }
+    const fetchVideos = async () => {
+		const data  = await getVideos();
+		setvideos(data.items);
+        setFilter(data.pageInfo)
+        // console.log(data.items)
+	};
 
     useEffect(() => {
-		axios.get("../testJson.json").then((res) => {
-			setvideos(res.data.productList);
-		});
+		fetchVideos();
 	}, []);
 
+
     const AllVideos = videos.map(((video:any, i:number) => (
-        <List videos={video} index={i} key={i}/>
+        <Item video={video} index={i} key={i}/>
     )))
 
+
+    
     //Loader
     const { loading } = useMainState();
 
@@ -60,14 +63,7 @@ export const Main: React.FC<any> = () => {
             <MobHeader onSubmit={onFormSubmit} searchInput={searchInput} setSearchInput={setSearchInput}/>
             <section className="main">
                 <div className="container">
-                    <div className="main__head">
-                        <p>About 13,000,000 filtered results</p>
-                        <p>
-                            <i className="fas fa-filter"></i>
-                            Filter
-                        </p>
-                    </div>
-                    {/* <List videos={videos} onVideoSelect={onSelectVideo}/> */}
+                    <Filter filter={filter}/>
                     {AllVideos}
                 </div>
             </section>
