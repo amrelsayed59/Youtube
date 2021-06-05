@@ -1,75 +1,63 @@
-import React,{useState, useEffect} from 'react'
-import Item from './Components/Item'
-import Loader from './Components/Loader';
-import Header from './Layout/Header'
-import { useMainState } from "../../context/gloabal";
-import MobHeader from './Layout/MobHeader';
-import axios from "axios";
-import {getVideos} from "../../services/youtube";
-import youtube from "../../services/youtube";
-import Filter from './Components/Filter';
-
-// interface ChildProps {
-//     color: string;
-//     onClick: () => void;
-// } 
- 
-
+import React, { useState } from "react";
+import Item from "./Components/Item";
+import { InnerLoader } from "../../components/Loader";
+import Header from "../../components/Header";
+import MobHeader from "../../components/MobHeader";
+import { getVideos } from "../../services/youtube";
+import Filter from "./Components/Filter";
+import useViewport from "../../hooks/useViewport";
 
 export const Main: React.FC<any> = () => {
+  const [searchInput, setSearchInput] = useState("");
+  const [videos, setvideos] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [loader, setLoader] = useState(false);
 
-    const [searchInput, setSearchInput] = useState("");
-    //list items
-    const [videos, setvideos] = useState([]);
+  const { width } = useViewport();
+  const breakpoint = 620;
 
-    const [filter, setFilter] = useState([]);
+  const onFormSubmit = async (e: Event) => {
+    e.preventDefault();
+    await fetchVideos();
+  };
 
-    const onFormSubmit = async (e:any) => {
-        alert(searchInput)
-        e.preventDefault();
-        onSearchSubmit(e)
-    }
+  const fetchVideos = async () => {
+    setLoader(true);
+    const data = await getVideos(searchInput);
+    setvideos(data.items);
+    setFilter(data.pageInfo);
+    setLoader(false);
+  };
 
-       const onSearchSubmit = async (term:any) => {
-        const response = await youtube.get('/search', {params: {q: term}})
-        console.log('---',response)
-    }    
+  const AllVideos = videos?.map((video: any, i: number) => (
+    <Item video={video} index={i} key={i} />
+  ));
 
-    const fetchVideos = async () => {
-		const data  = await getVideos();
-		setvideos(data.items);
-        setFilter(data.pageInfo)
-        // console.log(data.items)
-	};
+  return (
+    <>
+      {width < breakpoint ? (
+        <MobHeader
+          onSubmit={onFormSubmit}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        />
+      ) : (
+        <Header
+          onSubmit={onFormSubmit}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        />
+      )}
 
-    useEffect(() => {
-		fetchVideos();
-	}, []);
+      <section className="main">
+        <div className="container">
+          {videos?.length > 0 && <Filter filter={filter} />}
+          {loader ? <InnerLoader /> : null}
+          {AllVideos.length > 0 ? AllVideos : null}
+        </div>
+      </section>
+    </>
+  );
+};
 
-
-    const AllVideos = videos.map(((video:any, i:number) => (
-        <Item video={video} index={i} key={i}/>
-    )))
-
-
-    
-    //Loader
-    const { loading } = useMainState();
-
-    return (
-        <>
-            {loading || <Loader/>}
-            <Header onSubmit={onFormSubmit} searchInput={searchInput} setSearchInput={setSearchInput}/>
-            <MobHeader onSubmit={onFormSubmit} searchInput={searchInput} setSearchInput={setSearchInput}/>
-            <section className="main">
-                <div className="container">
-                    <Filter filter={filter}/>
-                    {AllVideos}
-                </div>
-            </section>
-        </>
-    )
-}
-
-
-export default Main
+export default Main;
